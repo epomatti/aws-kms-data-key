@@ -1,5 +1,6 @@
 package main
 
+// Reference: https://docs.aws.amazon.com/code-library/latest/ug/go_2_kms_code_examples.html
 import (
 	"context"
 	"fmt"
