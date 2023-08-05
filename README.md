@@ -1,8 +1,8 @@
-# aws-kms-data-key
+# AWS KMS Data Key
 
-This code will create a KMS key and use it for encryption and decryption.
+This code will create a KMS key and generate a Data Key for encryption and decryption.
 
-Get the dependencies:
+Build the executable:
 
 ```
 go get
@@ -28,7 +28,7 @@ Encrypt a file with **5KB** using a **Data Key** (4KB is the limit for standard 
 ```
 
 
-## Reference
+### Reference
 
 - [AWS KMS Go SDK V2](https://docs.aws.amazon.com/code-library/latest/ug/go_2_kms_code_examples.html)
 - [AWS SSM Go SDK V2](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/gov2/ssm/PutParameter/PutParameterv2.go)

@@ -83,7 +83,7 @@ func EncryptFile(cfg aws.Config, file *string) {
 
 	cipheredText := gcm.Seal(nonce, nonce, dat, nil)
 
-	path := "tmp/encrypted"
+	path := fmt.Sprintf("tmp/%s.encrypted", *file)
 
 	os.Mkdir("tmp", os.ModePerm)
 	os.Remove(path)
