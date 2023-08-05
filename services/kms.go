@@ -126,5 +126,26 @@ func decryptKey(cfg aws.Config) []byte {
 }
 
 func DecryptFile(cfg aws.Config, file *string) {
-	decryptKey(cfg)
+	key := decryptKey(cfg)
+
+	path := fmt.Sprintf("tmp/%s.encrypted", *file)
+	dat, err := os.ReadFile(path)
+	utils.Check(err)
+
+	c, err := aes.NewCipher(key)
+	utils.Check(err)
+
+	gcm, err := cipher.NewGCM(c)
+	utils.Check(err)
+
+	nonceSize := gcm.NonceSize()
+	if len(dat) < nonceSize {
+		panic(err)
+	}
+
+	nonce, ciphertext := dat[:nonceSize], dat[nonceSize:]
+	plaintext, err := gcm.Open(nil, nonce, ciphertext, nil)
+	utils.Check(err)
+
+	fmt.Println(string(plaintext))
 }
