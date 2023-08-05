@@ -24,6 +24,8 @@ func main() {
 		services.CreateAlias(cfg)
 	} else if *action == "encryptFile" {
 		services.EncryptFile(cfg, file)
+	} else if *action == "decryptFile" {
+		services.DecryptFile(cfg, file)
 	} else {
 		panic("no valid option selected")
 	}

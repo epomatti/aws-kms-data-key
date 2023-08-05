@@ -110,3 +110,21 @@ func EncryptFile(cfg aws.Config, file *string) {
 
 	fmt.Println("Created encrypted file")
 }
+
+func decryptKey(cfg aws.Config) []byte {
+	dat, err := os.ReadFile("tmp/encryptedKey")
+	utils.Check(err)
+
+	client := kms.NewFromConfig(cfg)
+	input := &kms.DecryptInput{
+		KeyId:          &keyAlias,
+		CiphertextBlob: dat,
+	}
+	output, err := client.Decrypt(context.TODO(), input)
+	utils.Check(err)
+	return output.Plaintext
+}
+
+func DecryptFile(cfg aws.Config, file *string) {
+	decryptKey(cfg)
+}
