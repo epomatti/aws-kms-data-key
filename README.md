@@ -27,6 +27,12 @@ Encrypt a file with **5KB** using a **Data Key** (4KB is the limit for standard 
 ./main -action="encryptFile" -file="hello5kb.txt"
 ```
 
+Decrypt the file:
+
+```sh
+./main -action="decryptFile" -file="hello5kb.txt.encrypted"
+```
+
 
 ### Reference
 

@@ -64,11 +64,23 @@ func generateDataKey(cfg aws.Config) *kms.GenerateDataKeyOutput {
 	return response
 }
 
+func saveEncryptedKey(output *kms.GenerateDataKeyOutput) {
+	encryptedKey := output.CiphertextBlob
+	keyFile := "tmp/encryptedKey"
+	os.Remove(keyFile)
+	f, err := os.Create(keyFile)
+	utils.Check(err)
+	_, err2 := f.Write(encryptedKey)
+	utils.Check(err2)
+}
+
 func EncryptFile(cfg aws.Config, file *string) {
 	output := generateDataKey(cfg)
 	plainKey := output.Plaintext
 	dat, err := os.ReadFile(*file)
 	utils.Check(err)
+
+	saveEncryptedKey(output)
 
 	c, err := aes.NewCipher(plainKey)
 	utils.Check(err)
