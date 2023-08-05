@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"main/services"
+	"main/utils"
 
 	"github.com/aws/aws-sdk-go-v2/config"
 )
@@ -11,17 +12,20 @@ import (
 func main() {
 
 	action := flag.String("action", "", "")
+	file := flag.String("file", "", "")
 	flag.Parse()
 
 	cfg, err := config.LoadDefaultConfig(context.TODO())
-	if err != nil {
-		panic(err)
-	}
+	utils.Check(err)
 
 	if *action == "createKey" {
 		services.CreateKey(cfg)
 	} else if *action == "createAlias" {
 		services.CreateAlias(cfg)
+	} else if *action == "encryptFile" {
+		services.EncryptFile(cfg, file)
+	} else {
+		panic("no valid option selected")
 	}
 
 }

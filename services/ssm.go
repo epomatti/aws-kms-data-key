@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"main/utils"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/ssm"
@@ -21,7 +22,8 @@ func PutParameter(cfg aws.Config, keyId string, keyDescription string) {
 		Type:        types.ParameterTypeString,
 		Overwrite:   &override,
 	}
-	client.PutParameter(context.TODO(), input)
+	_, err := client.PutParameter(context.TODO(), input)
+	utils.Check(err)
 }
 
 func GetKey(cfg aws.Config) string {
@@ -32,9 +34,7 @@ func GetKey(cfg aws.Config) string {
 	}
 
 	response, err := client.GetParameter(context.TODO(), input)
-	if err != nil {
-		panic(err)
-	}
+	utils.Check(err)
 
 	return *response.Parameter.Value
 }

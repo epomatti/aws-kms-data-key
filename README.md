@@ -1,6 +1,6 @@
 # aws-kms-data-key
 
-This code will create a KMS key and use it for encryption.
+This code will create a KMS key and use it for encryption and decryption.
 
 Get the dependencies:
 
@@ -15,9 +15,18 @@ Create the KMS key:
 ./main -action="createKey"
 ```
 
+Create the key alias:
+
 ```sh
 ./main -action="createAlias"
 ```
+
+Encrypt a file with **5KB** using a **Data Key** (4KB is the limit for standard keys in KMS):
+
+```sh
+./main -action="encryptFile" -file="hello5kb.txt"
+```
+
 
 ## Reference
 
