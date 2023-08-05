@@ -21,9 +21,9 @@ func main() {
 	switch *action {
 	case "createKey":
 		services.CreateKey(cfg)
-	case "encryptFile":
+	case "createAlias":
 		services.CreateAlias(cfg)
-	case "EncryptFile":
+	case "encryptFile":
 		services.EncryptFile(cfg, file)
 	case "decryptFile":
 		services.DecryptFile(cfg, file)
