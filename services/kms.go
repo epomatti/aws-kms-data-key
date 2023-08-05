@@ -10,9 +10,7 @@ import (
 )
 
 func CreateKey(cfg aws.Config) {
-
-	// KMS
-	kmsClient := kms.NewFromConfig(cfg)
+	client := kms.NewFromConfig(cfg)
 
 	description := "external-cmk"
 	tagKey := "Name"
@@ -24,7 +22,7 @@ func CreateKey(cfg aws.Config) {
 		Tags:        tags,
 	}
 
-	result, err := kmsClient.CreateKey(context.TODO(), input)
+	result, err := client.CreateKey(context.TODO(), input)
 
 	if err != nil {
 		fmt.Println("Got error creating key:")
@@ -40,5 +38,15 @@ func CreateKey(cfg aws.Config) {
 }
 
 func CreateAlias(cfg aws.Config) {
-
+	aliasName := "alias/externalKey"
+	key := GetKey(cfg)
+	client := kms.NewFromConfig(cfg)
+	input := &kms.CreateAliasInput{
+		AliasName:   &aliasName,
+		TargetKeyId: &key,
+	}
+	_, err := client.CreateAlias(context.TODO(), input)
+	if err != nil {
+		panic(err)
+	}
 }
