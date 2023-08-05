@@ -18,16 +18,17 @@ func main() {
 	cfg, err := config.LoadDefaultConfig(context.TODO())
 	utils.Check(err)
 
-	if *action == "createKey" {
+	switch *action {
+	case "createKey":
 		services.CreateKey(cfg)
-	} else if *action == "createAlias" {
+	case "encryptFile":
 		services.CreateAlias(cfg)
-	} else if *action == "encryptFile" {
+	case "EncryptFile":
 		services.EncryptFile(cfg, file)
-	} else if *action == "decryptFile" {
+	case "decryptFile":
 		services.DecryptFile(cfg, file)
-	} else {
-		panic("no valid option selected")
+	default:
+		panic("no valid action selected")
 	}
 
 }
