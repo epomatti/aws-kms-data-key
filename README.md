@@ -6,9 +6,9 @@ The envelope encryption process looks like this:
 
 ```mermaid
 sequenceDiagram
-    Client->>+KMS: Create KMS Key
-    Client->>+KMS: Generate data key
-    KMS-->>-Client: Data key
+    Client->>+AWS KMS: Create KMS Key
+    Client->>+AWS KMS: Generate data key
+    AWS KMS-->>-Client: Data key
     Client->>+Client: Encrypt content with data key
     Client->>+Client: Delete the unencrypted data key
     Client->>+Client: Envelope (append) encrypted data key and encrypted content
